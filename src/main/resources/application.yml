@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: sistemaBD
+  datasource:
+    url: jdbc:postgresql://localhost:5432/taller_proyecto
+    username: postgres
+    password: mysecretpassword
+  jpa:
+    hibernate:
+      # Desactiva el DDL de Hibernate para evitar conflictos
+      ddl-auto: none
+  flyway:
+    # Deshabilita el auto-config de Flyway
+    enabled: false
+    # Ejecuta el baseline al iniciar, si la tabla de historial aún no existe
+    baseline-on-migrate: false
+    # Le dice a Flyway qué versión existente debe considerar como la base (V1 por defecto)
+    baseline-version: 1
