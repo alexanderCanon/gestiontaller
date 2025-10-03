@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/mecanicos") // Ruta base sin /api/v1
+@RequestMapping("/mecanicos")
 public class MechanicController {
 
     @Autowired // Inyección de dependencia por campo (Field Injection)
