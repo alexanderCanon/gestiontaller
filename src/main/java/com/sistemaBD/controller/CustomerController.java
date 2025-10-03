@@ -19,7 +19,6 @@ public class CustomerController {
     private ICustomerService customerService;
 
     // Endpoint para CREAR un nuevo cliente
-    // POST http://localhost:8080/clientes
     @PostMapping
     public ResponseEntity<CustomerResponseDTO> createCustomer(@Valid @RequestBody CustomerRequestDTO requestDTO) {
         CustomerResponseDTO newCustomer = customerService.save(requestDTO);
@@ -27,14 +26,12 @@ public class CustomerController {
     }
 
     // Endpoint para OBTENER TODOS los clientes
-    // GET http://localhost:8080/clientes
     @GetMapping
     public ResponseEntity<List<CustomerResponseDTO>> getAllCustomers() {
         return ResponseEntity.ok(customerService.findAll());
     }
 
     // Endpoint para OBTENER UN cliente por ID
-    // GET http://localhost:8080/clientes/{id}
     @GetMapping("/{id}")
     public ResponseEntity<CustomerResponseDTO> getCustomerById(@PathVariable Integer id) {
         // Usa Optional para obtener el cliente, mapeando a OK o Not Found.
@@ -46,7 +43,6 @@ public class CustomerController {
     }
 
     // Endpoint para ACTUALIZAR un cliente
-    // PUT http://localhost:8080/clientes/{id}
     @PutMapping("/{id}")
     public ResponseEntity<CustomerResponseDTO> updateCustomer(
             @PathVariable Integer id,
@@ -58,7 +54,6 @@ public class CustomerController {
     }
 
     // Endpoint para ELIMINAR un cliente
-    // DELETE http://localhost:8080/clientes/{id}
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCustomer(@PathVariable Integer id) {
         customerService.deleteById(id);
@@ -66,7 +61,6 @@ public class CustomerController {
     }
 
     // Endpoint para OBTENER clientes por apellido
-    // GET http://localhost:8080/clientes/apellido/{apellido}
     @GetMapping("/apellido/{apellido}")
     public ResponseEntity<List<CustomerResponseDTO>> getCustomersByApellido(@PathVariable String apellido) {
         List<CustomerResponseDTO> customers = customerService.findByApellido(apellido);
