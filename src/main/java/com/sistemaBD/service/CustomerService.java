@@ -3,7 +3,6 @@ package com.sistemaBD.service;
 import com.sistemaBD.domain.Customer;
 import com.sistemaBD.dto.CustomerRequestDTO;
 import com.sistemaBD.dto.CustomerResponseDTO;
-// DELETE THIS LINE: import com.sistemaBD.repository.ICustomerService as CustomerRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,7 +16,7 @@ import java.util.Optional;
 @Transactional
 public class CustomerService implements ICustomerService {
 
-    // CORRECTED LINE: Use the full class path for the repository here.
+
     private final com.sistemaBD.repository.CustomerService customerRepository;
     private final CustomerMapper customerMapper;
 
