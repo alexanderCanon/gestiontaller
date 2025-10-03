@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/clientes") // Ruta base sin /api/v1
+@RequestMapping("/clientes") 
 public class CustomerController {
 
     @Autowired // Inyección de dependencia por campo (Field Injection)
