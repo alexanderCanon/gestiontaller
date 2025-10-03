@@ -3,7 +3,7 @@ package com.sistemaBD.dto;
 import lombok.Data;
 
 @Data
-public class ServicioResponseDTO {
+public class ServicesResponseDTO {
 
     private Integer servicioId;
     private String descripcion;

@@ -10,6 +10,7 @@ public class SistemaBdApplication {
      * Hi everyone, this is our DB project
      * @param args
      */
+
 	public static void main(String[] args) {
 		SpringApplication.run(SistemaBdApplication.class, args);
 	}

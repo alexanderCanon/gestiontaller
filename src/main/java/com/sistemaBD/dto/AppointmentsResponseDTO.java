@@ -13,7 +13,7 @@ public class AppointmentsResponseDTO {
 
     // Objetos anidados DTOs (puedes crear DTOs simples para estas entidades)
     private CustomerResponseDTO cliente;
-    private ServicioResponseDTO servicio;
+    private ServicesResponseDTO servicio;
     private MechanicResponseDTO mecanico;
 
     private String observaciones;

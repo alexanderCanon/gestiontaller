@@ -11,4 +11,6 @@ public interface ServicesRepository extends JpaRepository<Services, Integer> {
 
     // Example method: Buscar servicios por tipo
     List<Services> findByTipo(String tipo);
+
+
 }
