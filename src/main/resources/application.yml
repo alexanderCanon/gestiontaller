@@ -2,13 +2,13 @@ spring:
   application:
     name: sistemaBD
   datasource:
-    url: jdbc:postgresql://localhost:5432/taller_proyecto
-    username: postgres
-    password: mysecretpassword
+    url: jdbc:postgresql://myprojects-concurrent1.k.aivencloud.com:20448/taller_proyecto
+    username: avnadmin
+    password: ${AIVEN_DB_PASSWORD}
   jpa:
     hibernate:
       # Desactiva el DDL de Hibernate para evitar conflictos
-      ddl-auto: none
+      ddl-auto: update
   flyway:
     # Deshabilita el auto-config de Flyway
     enabled: false
