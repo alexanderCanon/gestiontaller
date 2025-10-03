@@ -19,7 +19,6 @@ public class MechanicController {
     private IMechanicService mechanicService;
 
     // Endpoint para CREAR un nuevo mecánico
-    // POST http://localhost:8080/mecanicos
     @PostMapping
     public ResponseEntity<MechanicResponseDTO> createMechanic(@RequestBody Mechanic mechanic) {
         MechanicResponseDTO newMechanic = mechanicService.save(mechanic);
@@ -27,14 +26,12 @@ public class MechanicController {
     }
 
     // Endpoint para OBTENER TODOS los mecánicos
-    // GET http://localhost:8080/mecanicos
     @GetMapping
     public ResponseEntity<List<MechanicResponseDTO>> getAllMechanics() {
         return ResponseEntity.ok(mechanicService.findAll());
     }
 
     // Endpoint para OBTENER UN mecánico por ID
-    // GET http://localhost:8080/mecanicos/{id}
     @GetMapping("/{id}")
     public ResponseEntity<MechanicResponseDTO> getMechanicById(@PathVariable String id) {
         // Usa Optional para obtener el mecánico, mapeando a OK o Not Found.
@@ -46,7 +43,6 @@ public class MechanicController {
     }
 
     // Endpoint para ACTUALIZAR un mecánico
-    // PUT http://localhost:8080/mecanicos/{id}
     @PutMapping("/{id}")
     public ResponseEntity<MechanicResponseDTO> updateMechanic(
             @PathVariable String id,
@@ -58,7 +54,6 @@ public class MechanicController {
     }
 
     // Endpoint para ELIMINAR un mecánico
-    // DELETE http://localhost:8080/mecanicos/{id}
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteMechanic(@PathVariable String id) {
         mechanicService.deleteById(id);
@@ -66,7 +61,6 @@ public class MechanicController {
     }
 
     // Endpoint para OBTENER mecánicos por apellido
-    // GET http://localhost:8080/mecanicos/apellido/{apellido}
     @GetMapping("/apellido/{apellido}")
     public ResponseEntity<List<MechanicResponseDTO>> getMechanicsByApellido(@PathVariable String apellido) {
         List<MechanicResponseDTO> mechanics = mechanicService.findByApellido(apellido);
