@@ -1,6 +1,3 @@
--- Archivo: V1__creacion_tablas_iniciales.sql
-
-
 create table servicios(
 servicio_id int primary key not null,
 descripcion varchar(50) not null ,
@@ -39,7 +36,7 @@ telefono int not null
 create table citas(
 cita_id varchar(10)not null,
 fecha date not null,
-servicio_id varchar(10) not null,
+servicio_id int not null,
 cliente_id int not null,
 placa varchar(10) not null,
 mecanico_id varchar(10) not null,

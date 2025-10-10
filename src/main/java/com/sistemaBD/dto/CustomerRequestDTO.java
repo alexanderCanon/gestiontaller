@@ -10,7 +10,6 @@ public class CustomerRequestDTO {
 
     @NotBlank(message = "El nombre es obligatorio")
     private String nombre;
-
     @NotBlank(message = "El apellido es obligatorio")
     private String apellido;
     @NotNull(message = "El numero es obligatorio")
