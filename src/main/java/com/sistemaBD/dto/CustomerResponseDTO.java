@@ -5,7 +5,8 @@ import lombok.Data;
 @Data
 public class CustomerResponseDTO {
     private Integer clienteId;
-    private String nombreCompleto; // Puedes combinar nombre y apellido aquí
+    private String nombre;
+    private String apellido;
     private int telefono;
     private String direccion;
 

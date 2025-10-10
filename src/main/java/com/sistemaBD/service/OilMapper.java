@@ -1,4 +1,4 @@
-package com.sistemaBD.mapper;
+package com.sistemaBD.service;
 
 import com.sistemaBD.domain.Oil;
 import com.sistemaBD.dto.OilRequestDTO;

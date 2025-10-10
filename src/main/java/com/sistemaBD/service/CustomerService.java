@@ -3,22 +3,21 @@ package com.sistemaBD.service;
 import com.sistemaBD.domain.Customer;
 import com.sistemaBD.dto.CustomerRequestDTO;
 import com.sistemaBD.dto.CustomerResponseDTO;
+import com.sistemaBD.repository.CustomerRepository;
 import jakarta.persistence.EntityNotFoundException;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
-@Transactional
 public class CustomerService implements ICustomerService {
 
-
-    private final com.sistemaBD.repository.CustomerService customerRepository;
-    private final CustomerMapper customerMapper;
+    @Autowired
+    private CustomerRepository customerRepository;
+    @Autowired
+    private CustomerMapper customerMapper;
 
     @Override
     public CustomerResponseDTO save(CustomerRequestDTO customerRequestDTO) {
@@ -28,14 +27,12 @@ public class CustomerService implements ICustomerService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<CustomerResponseDTO> findAll() {
         List<Customer> customers = customerRepository.findAll();
         return customerMapper.toResponseDTOList(customers);
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Optional<CustomerResponseDTO> findById(Integer id) {
         return customerRepository.findById(id)
                 .map(customerMapper::toResponseDTO);
@@ -61,7 +58,6 @@ public class CustomerService implements ICustomerService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<CustomerResponseDTO> findByApellido(String apellido) {
         List<Customer> customers = customerRepository.findByApellido(apellido);
         return customerMapper.toResponseDTOList(customers);

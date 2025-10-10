@@ -1,11 +1,9 @@
-package com.sistemaBD.service.impl;
+package com.sistemaBD.service;
 
 import com.sistemaBD.domain.Oil;
 import com.sistemaBD.dto.OilRequestDTO;
 import com.sistemaBD.dto.OilResponseDTO;
-import com.sistemaBD.mapper.OilMapper;
 import com.sistemaBD.repository.OilRepository;
-import com.sistemaBD.service.OilService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

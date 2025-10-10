@@ -2,7 +2,6 @@ package com.sistemaBD.service;
 
 import com.sistemaBD.domain.Mechanic;
 import com.sistemaBD.dto.MechanicResponseDTO;
-// El mapper ahora está en el mismo paquete
 import com.sistemaBD.repository.MechanicRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +16,7 @@ import java.util.Optional;
 @Transactional
 
 public class MechanicService implements IMechanicService {
+
 
     private final MechanicRepository mechanicRepository;
     private final MechanicMapper mechanicMapper;

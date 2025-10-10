@@ -1,11 +1,12 @@
 package com.sistemaBD.service;
 
-import com.sistemaBD.domain.Mechanic;
-import com.sistemaBD.dto.MechanicResponseDTO;
+import java.util.List;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-import java.util.List;
+import com.sistemaBD.domain.Mechanic;
+import com.sistemaBD.dto.MechanicResponseDTO;
 
 @Mapper(componentModel = "spring")
 public interface MechanicMapper {

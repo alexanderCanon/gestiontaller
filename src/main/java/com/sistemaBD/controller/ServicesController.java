@@ -66,6 +66,4 @@ public class ServicesController {
     public ResponseEntity<List<ServicesResponseDTO>> getByType(@PathVariable String tipo) {
         return ResponseEntity.ok(iServicesService.getServicesByType(tipo));
     }
-
-
 }
