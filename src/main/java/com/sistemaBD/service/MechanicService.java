@@ -1,71 +1,68 @@
 package com.sistemaBD.service;
 
 import com.sistemaBD.domain.Mechanic;
+import com.sistemaBD.dto.MechanicRequestDTO;
 import com.sistemaBD.dto.MechanicResponseDTO;
 import com.sistemaBD.repository.MechanicRepository;
 import jakarta.persistence.EntityNotFoundException;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
-@Transactional
-
 public class MechanicService implements IMechanicService {
 
-
-    private final MechanicRepository mechanicRepository;
-    private final MechanicMapper mechanicMapper;
-
-    @Override
-    public MechanicResponseDTO save(Mechanic mechanic) {
-        Mechanic savedMechanic = mechanicRepository.save(mechanic);
-        return mechanicMapper.toResponseDTO(savedMechanic);
-    }
+    @Autowired
+    private MechanicRepository mechanicRepository;
+    @Autowired
+    private MechanicMapper mechanicMapper;
 
     @Override
-    @Transactional(readOnly = true)
-    public List<MechanicResponseDTO> findAll() {
+    public List<MechanicResponseDTO> getAllMechanics() {
         List<Mechanic> mechanics = mechanicRepository.findAll();
         return mechanicMapper.toResponseDTOList(mechanics);
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public Optional<MechanicResponseDTO> findById(String id) {
-        return mechanicRepository.findById(id)
-                .map(mechanicMapper::toResponseDTO);
+    public MechanicResponseDTO getMechanicById(String id) {
+        Mechanic mechanic = findMechanicByIdOrThrow(id);
+        return mechanicMapper.toResponseDTO(mechanic);
     }
 
     @Override
-    public MechanicResponseDTO update(String id, Mechanic mechanicDetails) {
-        Mechanic existingMechanic = mechanicRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Mecánico no encontrado con id: " + id));
+    public MechanicResponseDTO createMechanic(MechanicRequestDTO requestDTO) {
+        Mechanic mechanic = mechanicMapper.toEntity(requestDTO);
+        Mechanic savedMechanic = mechanicRepository.save(mechanic);
+        return mechanicMapper.toResponseDTO(savedMechanic);
+    }
 
-        existingMechanic.setNombre(mechanicDetails.getNombre());
-        existingMechanic.setApellido(mechanicDetails.getApellido());
-        existingMechanic.setTelefono(mechanicDetails.getTelefono());
+    @Override
+    public MechanicResponseDTO updateMechanic(String id, MechanicRequestDTO requestDTO) {
+        Mechanic existingMechanic = findMechanicByIdOrThrow(id);
+
+        mechanicMapper.updateEntityFromDto(requestDTO, existingMechanic);
 
         Mechanic updatedMechanic = mechanicRepository.save(existingMechanic);
         return mechanicMapper.toResponseDTO(updatedMechanic);
     }
 
     @Override
-    public void deleteById(String id) {
+    public void deleteMechanic(String id) {
         if (!mechanicRepository.existsById(id)) {
-            throw new EntityNotFoundException("Mecánico no encontrado con id: " + id);
+            throw new EntityNotFoundException("No se puede eliminar. Mecánico no encontrado con el ID: " + id);
         }
         mechanicRepository.deleteById(id);
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public List<MechanicResponseDTO> findByApellido(String apellido) {
+    public List<MechanicResponseDTO> getMechanicsByApellido(String apellido) {
         List<Mechanic> mechanics = mechanicRepository.findByApellido(apellido);
         return mechanicMapper.toResponseDTOList(mechanics);
+    }
+
+    private Mechanic findMechanicByIdOrThrow(String id) {
+        return mechanicRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Mecánico no encontrado con el ID: " + id));
     }
 }

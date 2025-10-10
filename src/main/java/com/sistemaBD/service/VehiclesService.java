@@ -1,43 +1,67 @@
 package com.sistemaBD.service;
 
+import com.sistemaBD.domain.Vehicles;
 import com.sistemaBD.dto.VehiclesRequestDTO;
 import com.sistemaBD.dto.VehiclesResponseDTO;
+import com.sistemaBD.repository.VehiclesRepository;
+import jakarta.persistence.EntityNotFoundException;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-public interface VehiclesService {
+@Service
+public class VehiclesService implements IVehiclesService {
 
-    /**
-     * Obtiene todos los vehículos.
-     * @return Una lista de DTOs de vehículos.
-     */
-    List<VehiclesResponseDTO> findAll();
+    private final VehiclesRepository vehiclesRepository;
+    private final VehicleMapper vehicleMapper;
 
-    /**
-     * Busca un vehículo por su placa.
-     * @param placa La placa del vehículo a buscar.
-     * @return El DTO del vehículo encontrado.
-     */
-    VehiclesResponseDTO findById(String placa);
+    public VehiclesService(VehiclesRepository vehiclesRepository, VehicleMapper vehicleMapper) {
+        this.vehiclesRepository = vehiclesRepository;
+        this.vehicleMapper = vehicleMapper;
+    }
 
-    /**
-     * Guarda un nuevo vehículo.
-     * @param vehicleDTO El DTO con la información del vehículo a crear.
-     * @return El DTO del vehículo guardado.
-     */
-    VehiclesResponseDTO save(VehiclesRequestDTO vehicleDTO);
+    @Override
+    public List<VehiclesResponseDTO> getAllVehicles() {
+        List<Vehicles> vehicles = vehiclesRepository.findAll();
+        return vehicleMapper.toResponseDTOList(vehicles);
+    }
 
-    /**
-     * Actualiza un vehículo existente.
-     * @param placa La placa del vehículo a actualizar.
-     * @param vehicleDTO El DTO con la nueva información.
-     * @return El DTO del vehículo actualizado.
-     */
-    VehiclesResponseDTO update(String placa, VehiclesRequestDTO vehicleDTO);
+    @Override
+    public VehiclesResponseDTO getVehicleById(String placa) {
+        Vehicles vehicle = findVehicleByIdOrThrow(placa);
+        return vehicleMapper.toResponseDTO(vehicle);
+    }
 
-    /**
-     * Elimina un vehículo por su placa.
-     * @param placa La placa del vehículo a eliminar.
-     */
-    void deleteById(String placa);
+    @Override
+    public VehiclesResponseDTO createVehicle(VehiclesRequestDTO vehicleDTO) {
+        if (vehiclesRepository.existsById(vehicleDTO.getPlaca())) {
+            throw new IllegalArgumentException("Ya existe un vehículo con la placa: " + vehicleDTO.getPlaca());
+        }
+        Vehicles vehicle = vehicleMapper.toEntity(vehicleDTO);
+        Vehicles savedVehicle = vehiclesRepository.save(vehicle);
+        return vehicleMapper.toResponseDTO(savedVehicle);
+    }
+
+    @Override
+    public VehiclesResponseDTO updateVehicle(String placa, VehiclesRequestDTO vehicleDTO) {
+        Vehicles existingVehicle = findVehicleByIdOrThrow(placa);
+
+        vehicleMapper.updateEntityFromDto(vehicleDTO, existingVehicle);
+
+        Vehicles updatedVehicle = vehiclesRepository.save(existingVehicle);
+        return vehicleMapper.toResponseDTO(updatedVehicle);
+    }
+
+    @Override
+    public void deleteVehicle(String placa) {
+        if (!vehiclesRepository.existsById(placa)) {
+            throw new EntityNotFoundException("Vehículo no encontrado con la placa: " + placa);
+        }
+        vehiclesRepository.deleteById(placa);
+    }
+
+    private Vehicles findVehicleByIdOrThrow(String placa) {
+        return vehiclesRepository.findById(placa)
+                .orElseThrow(() -> new EntityNotFoundException("Vehículo no encontrado con la placa: " + placa));
+    }
 }

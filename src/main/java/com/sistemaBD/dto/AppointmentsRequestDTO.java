@@ -1,23 +1,34 @@
 package com.sistemaBD.dto;
 
+import jakarta.validation.constraints.FutureOrPresent;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 
 @Data
 public class AppointmentsRequestDTO {
 
-    // IDs para las relaciones ManyToOne
+    @NotBlank(message = "El ID de la cita es obligatorio")
+    private String citaId;
+
+    @NotNull(message = "La fecha es obligatoria")
+    @FutureOrPresent(message = "La fecha no puede ser en el pasado")
+    private LocalDate fecha;
+
+    @NotNull(message = "El ID del cliente es obligatorio")
     private Integer clienteId;
-    private String vehiculoPlaca; // Asumiendo que Placa es el ID del Vehiculo
-    private String mecanicoId;    // Asumiendo que Mecanico tiene un ID tipo String
+
+    @NotBlank(message = "La placa del vehiculo es obligatoria")
+    private String vehiculoPlaca;
+
+    @NotBlank(message = "El ID del mecanico es obligatorio")
+    private String mecanicoId;
+
+    @NotNull(message = "El ID del servicio es obligatorio")
     private Integer servicioId;
 
-    // Campos propios de la Cita
-    private LocalDate fecha;
-    private LocalTime hora;
-    private String observaciones;
-    private Boolean incluyeAceite; // Si es True, necesita el aceiteId
-    private Integer aceiteId;
+    @NotNull(message = "Debe especificar si incluye aceite")
+    private Boolean incluyeAceite;
 }

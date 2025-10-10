@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CustomerService implements ICustomerService {
@@ -20,46 +19,51 @@ public class CustomerService implements ICustomerService {
     private CustomerMapper customerMapper;
 
     @Override
-    public CustomerResponseDTO save(CustomerRequestDTO customerRequestDTO) {
+    public List<CustomerResponseDTO> getAllCustomers() {
+        List<Customer> customers = customerRepository.findAll();
+        return customerMapper.toResponseDTOList(customers);
+    }
+
+    @Override
+    public CustomerResponseDTO getCustomerById(Integer id) {
+        Customer customer = findCustomerByIdOrThrow(id);
+        return customerMapper.toResponseDTO(customer);
+    }
+
+    @Override
+    public CustomerResponseDTO createCustomer(CustomerRequestDTO customerRequestDTO) {
         Customer customer = customerMapper.toEntity(customerRequestDTO);
         Customer savedCustomer = customerRepository.save(customer);
         return customerMapper.toResponseDTO(savedCustomer);
     }
 
     @Override
-    public List<CustomerResponseDTO> findAll() {
-        List<Customer> customers = customerRepository.findAll();
-        return customerMapper.toResponseDTOList(customers);
+    public CustomerResponseDTO updateCustomer(Integer id, CustomerRequestDTO customerRequestDTO) {
+        Customer existingCustomer = findCustomerByIdOrThrow(id);
+
+        customerMapper.updateEntityFromDto(customerRequestDTO, existingCustomer);
+
+        Customer updatedCustomer = customerRepository.save(existingCustomer);
+
+        return customerMapper.toResponseDTO(updatedCustomer);
     }
 
     @Override
-    public Optional<CustomerResponseDTO> findById(Integer id) {
-        return customerRepository.findById(id)
-                .map(customerMapper::toResponseDTO);
-    }
-
-    @Override
-    public CustomerResponseDTO update(Integer id, CustomerRequestDTO customerRequestDTO) {
-        Customer existingCustomer = customerRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Cliente no encontrado con id: " + id));
-
-        Customer updatedCustomer = customerMapper.toEntity(customerRequestDTO);
-
-        updatedCustomer.setClienteId(existingCustomer.getClienteId());
-
-        Customer savedCustomer = customerRepository.save(updatedCustomer);
-
-        return customerMapper.toResponseDTO(savedCustomer);
-    }
-
-    @Override
-    public void deleteById(Integer id) {
+    public void deleteCustomer(Integer id) {
+        if (!customerRepository.existsById(id)) {
+            throw new EntityNotFoundException("No se puede eliminar. Cliente no encontrado con el ID: " + id);
+        }
         customerRepository.deleteById(id);
     }
 
     @Override
-    public List<CustomerResponseDTO> findByApellido(String apellido) {
+    public List<CustomerResponseDTO> getCustomersByApellido(String apellido) {
         List<Customer> customers = customerRepository.findByApellido(apellido);
         return customerMapper.toResponseDTOList(customers);
+    }
+
+    private Customer findCustomerByIdOrThrow(Integer id) {
+        return customerRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Cliente no encontrado con el ID: " + id));
     }
 }

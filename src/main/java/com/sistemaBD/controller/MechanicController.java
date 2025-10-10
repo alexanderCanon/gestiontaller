@@ -1,73 +1,54 @@
 package com.sistemaBD.controller;
 
-import com.sistemaBD.domain.Mechanic;
+import com.sistemaBD.dto.MechanicRequestDTO;
 import com.sistemaBD.dto.MechanicResponseDTO;
 import com.sistemaBD.service.IMechanicService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*; 
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/mecanicos")
 public class MechanicController {
 
-    @Autowired // Inyección de dependencia por campo (Field Injection)
+    @Autowired
     private IMechanicService mechanicService;
 
-    // Endpoint para CREAR un nuevo mecánico
     @PostMapping
-    public ResponseEntity<MechanicResponseDTO> createMechanic(@RequestBody Mechanic mechanic) {
-        MechanicResponseDTO newMechanic = mechanicService.save(mechanic);
+    public ResponseEntity<MechanicResponseDTO> create(@Valid @RequestBody MechanicRequestDTO requestDTO) {
+        MechanicResponseDTO newMechanic = mechanicService.createMechanic(requestDTO);
         return new ResponseEntity<>(newMechanic, HttpStatus.CREATED);
     }
 
-    // Endpoint para OBTENER TODOS los mecánicos
     @GetMapping
-    public ResponseEntity<List<MechanicResponseDTO>> getAllMechanics() {
-        return ResponseEntity.ok(mechanicService.findAll());
+    public ResponseEntity<List<MechanicResponseDTO>> getAll() {
+        return ResponseEntity.ok(mechanicService.getAllMechanics());
     }
 
-    // Endpoint para OBTENER UN mecánico por ID
     @GetMapping("/{id}")
-    public ResponseEntity<MechanicResponseDTO> getMechanicById(@PathVariable String id) {
-        // Usa Optional para obtener el mecánico, mapeando a OK o Not Found.
-        Optional<MechanicResponseDTO> mechanic = mechanicService.findById(id);
-
-        return mechanic
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<MechanicResponseDTO> getById(@PathVariable String id) {
+        return ResponseEntity.ok(mechanicService.getMechanicById(id));
     }
 
-    // Endpoint para ACTUALIZAR un mecánico
     @PutMapping("/{id}")
-    public ResponseEntity<MechanicResponseDTO> updateMechanic(
-            @PathVariable String id,
-            @RequestBody Mechanic mechanicDetails) {
-
-        // Se asume que el servicio maneja la excepción NotFound o retorna la entidad actualizada.
-        MechanicResponseDTO updatedMechanic = mechanicService.update(id, mechanicDetails);
+    public ResponseEntity<MechanicResponseDTO> update(@PathVariable String id, @Valid @RequestBody MechanicRequestDTO requestDTO) {
+        MechanicResponseDTO updatedMechanic = mechanicService.updateMechanic(id, requestDTO);
         return ResponseEntity.ok(updatedMechanic);
     }
 
-    // Endpoint para ELIMINAR un mecánico
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteMechanic(@PathVariable String id) {
-        mechanicService.deleteById(id);
-        return ResponseEntity.noContent().build(); // Retorna un código 204 No Content
+    public ResponseEntity<Void> delete(@PathVariable String id) {
+        mechanicService.deleteMechanic(id);
+        return ResponseEntity.noContent().build();
     }
 
-    // Endpoint para OBTENER mecánicos por apellido
     @GetMapping("/apellido/{apellido}")
-    public ResponseEntity<List<MechanicResponseDTO>> getMechanicsByApellido(@PathVariable String apellido) {
-        List<MechanicResponseDTO> mechanics = mechanicService.findByApellido(apellido);
-
-        if (mechanics.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<List<MechanicResponseDTO>> getByApellido(@PathVariable String apellido) {
+        List<MechanicResponseDTO> mechanics = mechanicService.getMechanicsByApellido(apellido);
         return ResponseEntity.ok(mechanics);
     }
 }

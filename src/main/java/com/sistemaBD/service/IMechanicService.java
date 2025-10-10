@@ -1,22 +1,21 @@
 package com.sistemaBD.service;
 
+import com.sistemaBD.dto.MechanicRequestDTO;
 import com.sistemaBD.dto.MechanicResponseDTO;
-import com.sistemaBD.domain.Mechanic;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface IMechanicService {
 
-    MechanicResponseDTO save(Mechanic mechanic);
+    List<MechanicResponseDTO> getAllMechanics();
 
-    List<MechanicResponseDTO> findAll();
+    MechanicResponseDTO getMechanicById(String id);
 
-    Optional<MechanicResponseDTO> findById(String id);
+    MechanicResponseDTO createMechanic(MechanicRequestDTO requestDTO);
 
-    MechanicResponseDTO update(String id, Mechanic mechanicDetails);
+    MechanicResponseDTO updateMechanic(String id, MechanicRequestDTO requestDTO);
 
-    void deleteById(String id);
+    void deleteMechanic(String id);
 
-    List<MechanicResponseDTO> findByApellido(String apellido);
+    List<MechanicResponseDTO> getMechanicsByApellido(String apellido);
 }

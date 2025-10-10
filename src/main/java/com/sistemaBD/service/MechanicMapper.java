@@ -1,12 +1,13 @@
 package com.sistemaBD.service;
 
-import java.util.List;
-
+import com.sistemaBD.domain.Mechanic;
+import com.sistemaBD.dto.MechanicRequestDTO;
+import com.sistemaBD.dto.MechanicResponseDTO;
 import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
 
-import com.sistemaBD.domain.Mechanic;
-import com.sistemaBD.dto.MechanicResponseDTO;
+import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface MechanicMapper {
@@ -15,7 +16,9 @@ public interface MechanicMapper {
 
     MechanicResponseDTO toResponseDTO(Mechanic entity);
 
-    Mechanic toEntity(MechanicResponseDTO dto);
+    Mechanic toEntity(MechanicRequestDTO dto);
 
     List<MechanicResponseDTO> toResponseDTOList(List<Mechanic> entities);
+
+    void updateEntityFromDto(MechanicRequestDTO requestDTO, @MappingTarget Mechanic entity);
 }

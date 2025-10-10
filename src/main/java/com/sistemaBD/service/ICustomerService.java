@@ -3,19 +3,18 @@ package com.sistemaBD.service;
 import com.sistemaBD.dto.CustomerRequestDTO;
 import com.sistemaBD.dto.CustomerResponseDTO;
 import java.util.List;
-import java.util.Optional;
 
 public interface ICustomerService {
 
-    CustomerResponseDTO save(CustomerRequestDTO customerRequestDTO);
+    List<CustomerResponseDTO> getAllCustomers();
 
-    List<CustomerResponseDTO> findAll();
+    CustomerResponseDTO getCustomerById(Integer id);
 
-    Optional<CustomerResponseDTO> findById(Integer id);
+    CustomerResponseDTO createCustomer(CustomerRequestDTO customerRequestDTO);
 
-    CustomerResponseDTO update(Integer id, CustomerRequestDTO customerRequestDTO);
+    CustomerResponseDTO updateCustomer(Integer id, CustomerRequestDTO customerRequestDTO);
 
-    void deleteById(Integer id);
+    void deleteCustomer(Integer id);
 
-    List<CustomerResponseDTO> findByApellido(String apellido);
+    List<CustomerResponseDTO> getCustomersByApellido(String apellido);
 }

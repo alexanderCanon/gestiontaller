@@ -3,20 +3,17 @@ package com.sistemaBD.dto;
 import lombok.Data;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 
 @Data
 public class AppointmentsResponseDTO {
-    // IDs de la clave compuesta de la Cita (si aplica)
-    private LocalDate fecha;
-    private LocalTime hora;
 
-    // Objetos anidados DTOs (puedes crear DTOs simples para estas entidades)
+    private String citaId;
+    private LocalDate fecha;
+    private Boolean incluyeAceite;
+
+    // DTOs anidados para mostrar la información completa
     private CustomerResponseDTO cliente;
     private ServicesResponseDTO servicio;
     private MechanicResponseDTO mecanico;
-
-    private String observaciones;
-    private String detalleVehiculo; // Ejemplo: "Toyota Yaris (ABC-123)"
-    private String detalleAceite;   // Ejemplo: "Aceite Sintetico 5W-30"
+    private VehiclesResponseDTO vehiculo;
 }
