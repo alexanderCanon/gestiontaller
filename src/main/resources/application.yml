@@ -1,18 +1,14 @@
 spring:
+  profiles:
+    active: local
   application:
     name: sistemaBD
-  datasource:
-    url: jdbc:postgresql://myprojects-concurrent1.k.aivencloud.com:20448/taller_proyecto
-    username: avnadmin
-    password: ${AIVEN_DB_PASSWORD}
   jpa:
     hibernate:
-      # Desactiva el DDL de Hibernate para evitar conflictos
-      ddl-auto: update
-  flyway:
-    # Deshabilita el auto-config de Flyway
-    enabled: false
-    # Ejecuta el baseline al iniciar, si la tabla de historial aún no existe
-    baseline-on-migrate: false
-    # Le dice a Flyway qué versión existente debe considerar como la base (V1 por defecto)
-    baseline-version: 1
+      # Valida el esquema de la base de datos contra las entidades JPA al iniciar
+      ddl-auto: validate
+  liquibase:
+    # Habilita la integración de Liquibase con Spring Boot
+    enabled: true
+    # Ruta al archivo de changelog principal
+    change-log: classpath:db/changelog/db.changelog-master.xml

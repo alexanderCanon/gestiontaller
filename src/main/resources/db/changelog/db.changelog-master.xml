@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+    <!-- 
+        Este es el archivo maestro de Liquibase.
+        Cada 'include' apunta a un archivo de changeset que contiene los cambios.
+        Esto permite mantener las migraciones organizadas en archivos separados.
+    -->
+
+    <include file="changes/001-creacion-tablas-iniciales.sql" relativeToChangelogFile="true"/>
+
+    <!-- Próximos cambios se añadirían aquí -->
+    <!-- <include file="changes/002-agregar-columna-ejemplo.xml" relativeToChangelogFile="true"/> -->
+
+</databaseChangeLog>
