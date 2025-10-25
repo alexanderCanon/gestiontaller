@@ -12,6 +12,7 @@
     -->
 
     <include file="changes/001-creacion-tablas-iniciales.sql" relativeToChangelogFile="true"/>
+    <include file="changes/002-add-username-and-password-to-clientes.sql" relativeToChangelogFile="true"/>
 
     <!-- Próximos cambios se añadirían aquí -->
     <!-- <include file="changes/002-agregar-columna-ejemplo.xml" relativeToChangelogFile="true"/> -->
