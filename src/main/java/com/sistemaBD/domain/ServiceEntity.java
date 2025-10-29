@@ -10,24 +10,25 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Entity
-@Table(name = "oils")
+@Table(name ="services")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Oil {
+public class ServiceEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "oil_id", nullable = false)
+    @Column(name = "service_id", nullable = false)
     private Integer id;
 
-    @Column(name = "name", nullable = false, length = 25)
-    private String name;
+    @Column(name = "description", nullable = false)
+    private String description;
 
-    @Column(name = "type", nullable = false, length = 25)
+    @Column(name = "type", nullable = false)
     private String type;
 
-    @Column(name = "price", nullable = false)
-    private Integer price;
+    @Column(name = "cost", nullable = false)
+    private Integer cost;
+
 }

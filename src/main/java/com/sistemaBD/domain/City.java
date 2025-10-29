@@ -7,27 +7,23 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-
+import lombok.Setter;
 
 @Entity
-@Table(name = "oils")
-@Data
+@Table(name = "city")
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Oil {
+public class City {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "oil_id", nullable = false)
+    @Column(name = "city_id")
     private Integer id;
 
-    @Column(name = "name", nullable = false, length = 25)
-    private String name;
-
-    @Column(name = "type", nullable = false, length = 25)
-    private String type;
-
-    @Column(name = "price", nullable = false)
-    private Integer price;
+    @Column(name = "city_name", nullable = false)
+    private String cityName;
 }

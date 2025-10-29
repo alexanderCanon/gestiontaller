@@ -1,64 +1,54 @@
 package com.sistemaBD.service;
 
 import com.sistemaBD.domain.Oil;
-import com.sistemaBD.dto.OilRequestDTO;
-import com.sistemaBD.dto.OilResponseDTO;
+import com.sistemaBD.dto.request.OilRequest;
+import com.sistemaBD.dto.response.OilResponse;
 import com.sistemaBD.repository.OilRepository;
-import jakarta.persistence.EntityNotFoundException;
+import com.sistemaBD.service.iservice.IOilService;
+import com.sistemaBD.service.mapper.OilMapper;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class OilService implements IOilService {
 
     private final OilRepository oilRepository;
     private final OilMapper oilMapper;
 
-    public OilService(OilRepository oilRepository, OilMapper oilMapper) {
-        this.oilRepository = oilRepository;
-        this.oilMapper = oilMapper;
+    @Override
+    public List<OilResponse> findAll() {
+        return oilRepository.findAll().stream()
+                .map(oilMapper::toResponse)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<OilResponseDTO> getAllOils() {
-        List<Oil> oils = oilRepository.findAll();
-        return oilMapper.toResponseDTOList(oils);
-    }
-
-    @Override
-    public OilResponseDTO getOilById(Integer id) {
-        Oil oil = findOilByIdOrThrow(id);
-        return oilMapper.toResponseDTO(oil);
-    }
-
-    @Override
-    public OilResponseDTO createOil(OilRequestDTO oilDTO) {
-        Oil oil = oilMapper.toEntity(oilDTO);
-        Oil savedOil = oilRepository.save(oil);
-        return oilMapper.toResponseDTO(savedOil);
-    }
-
-    @Override
-    public OilResponseDTO updateOil(Integer id, OilRequestDTO oilDTO) {
-        Oil existingOil = findOilByIdOrThrow(id);
-
-        oilMapper.updateEntityFromDto(oilDTO, existingOil);
-
-        Oil updatedOil = oilRepository.save(existingOil);
-        return oilMapper.toResponseDTO(updatedOil);
-    }
-
-    @Override
-    public void deleteOil(Integer id) {
-        if (!oilRepository.existsById(id)) {
-            throw new EntityNotFoundException("No se puede eliminar. Aceite no encontrado con ID: " + id);
-        }
-        oilRepository.deleteById(id);
-    }
-
-    private Oil findOilByIdOrThrow(Integer id) {
+    public OilResponse findById(Integer id) {
         return oilRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Aceite no encontrado con ID: " + id));
+                .map(oilMapper::toResponse)
+                .orElseThrow(() -> new RuntimeException("Oil not found"));
+    }
+
+    @Override
+    public OilResponse save(OilRequest request) {
+        Oil oil = oilMapper.toEntity(request);
+        return oilMapper.toResponse(oilRepository.save(oil));
+    }
+
+    @Override
+    public OilResponse update(Integer id, OilRequest request) {
+        Oil oilToUpdate = oilRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Oil not found"));
+        oilMapper.updateFromDto(request, oilToUpdate);
+        return oilMapper.toResponse(oilRepository.save(oilToUpdate));
+    }
+
+    @Override
+    public void delete(Integer id) {
+        oilRepository.deleteById(id);
     }
 }

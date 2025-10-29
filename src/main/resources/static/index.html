@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backend Test</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <h1>Backend Test Interface</h1>
+
+    <div class="main-container">
+        <div class="entity-menu">
+            <h2>Entities</h2>
+            <nav>
+                <ul>
+                    <li><a href="#roles">Roles</a></li>
+                    <li><a href="#countries">Countries</a></li>
+                    <li><a href="#departments">Departments</a></li>
+                    <li><a href="#cities">Cities</a></li>
+                    <li><a href="#oils">Oils</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#vehicles">Vehicles</a></li>
+                    <li><a href="#addresses">Addresses</a></li>
+                    <li><a href="#users">Users</a></li>
+                    <li><a href="#appointments">Appointments</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="content">
+            <!-- Roles Section -->
+            <div id="roles" class="entity-section">
+                <h2>Roles</h2>
+                <div class="controls"><button data-entity="roles">Get All Roles</button></div>
+                <div class="form-container">
+                    <form data-entity="roles" data-action="create"><h3>Create Role</h3><input type="text" name="roleName" placeholder="Role Name" required><button type="submit">Create</button></form>
+                    <form data-entity="roles" data-action="update"><h3>Update Role</h3><input type="number" name="id" placeholder="Role ID" required><input type="text" name="roleName" placeholder="New Role Name" required><button type="submit">Update</button></form>
+                    <form data-entity="roles" data-action="delete"><h3>Delete Role</h3><input type="number" name="id" placeholder="Role ID" required><button type="submit">Delete</button></form>
+                </div>
+            </div>
+
+            <!-- Countries Section -->
+            <div id="countries" class="entity-section">
+                <h2>Countries</h2>
+                <div class="controls"><button data-entity="countries">Get All Countries</button></div>
+                <div class="form-container">
+                    <form data-entity="countries" data-action="create"><h3>Create Country</h3><input type="text" name="countryName" placeholder="Country Name" required><button type="submit">Create</button></form>
+                    <form data-entity="countries" data-action="update"><h3>Update Country</h3><input type="number" name="id" placeholder="Country ID" required><input type="text" name="countryName" placeholder="New Country Name" required><button type="submit">Update</button></form>
+                    <form data-entity="countries" data-action="delete"><h3>Delete Country</h3><input type="number" name="id" placeholder="Country ID" required><button type="submit">Delete</button></form>
+                </div>
+            </div>
+
+            <!-- Departments Section -->
+            <div id="departments" class="entity-section">
+                <h2>Departments</h2>
+                <div class="controls"><button data-entity="departments">Get All Departments</button></div>
+                <div class="form-container">
+                    <form data-entity="departments" data-action="create"><h3>Create Department</h3><input type="text" name="departmentName" placeholder="Department Name" required><button type="submit">Create</button></form>
+                    <form data-entity="departments" data-action="update"><h3>Update Department</h3><input type="number" name="id" placeholder="Department ID" required><input type="text" name="departmentName" placeholder="New Department Name" required><button type="submit">Update</button></form>
+                    <form data-entity="departments" data-action="delete"><h3>Delete Department</h3><input type="number" name="id" placeholder="Department ID" required><button type="submit">Delete</button></form>
+                </div>
+            </div>
+
+            <!-- Cities Section -->
+            <div id="cities" class="entity-section">
+                <h2>Cities</h2>
+                <div class="controls"><button data-entity="cities">Get All Cities</button></div>
+                <div class="form-container">
+                    <form data-entity="cities" data-action="create"><h3>Create City</h3><input type="text" name="cityName" placeholder="City Name" required><button type="submit">Create</button></form>
+                    <form data-entity="cities" data-action="update"><h3>Update City</h3><input type="number" name="id" placeholder="City ID" required><input type="text" name="cityName" placeholder="New City Name" required><button type="submit">Update</button></form>
+                    <form data-entity="cities" data-action="delete"><h3>Delete City</h3><input type="number" name="id" placeholder="City ID" required><button type="submit">Delete</button></form>
+                </div>
+            </div>
+
+            <!-- Oils Section -->
+            <div id="oils" class="entity-section">
+                <h2>Oils</h2>
+                <div class="controls"><button data-entity="oils">Get All Oils</button></div>
+                <div class="form-container">
+                    <form data-entity="oils" data-action="create"><h3>Create Oil</h3><input type="text" name="name" placeholder="Name" required><input type="text" name="type" placeholder="Type" required><input type="number" name="price" placeholder="Price" required><button type="submit">Create</button></form>
+                    <form data-entity="oils" data-action="update"><h3>Update Oil</h3><input type="number" name="id" placeholder="Oil ID" required><input type="text" name="name" placeholder="New Name"><input type="text" name="type" placeholder="New Type"><input type="number" name="price" placeholder="New Price"><button type="submit">Update</button></form>
+                    <form data-entity="oils" data-action="delete"><h3>Delete Oil</h3><input type="number" name="id" placeholder="Oil ID" required><button type="submit">Delete</button></form>
+                </div>
+            </div>
+
+            <!-- Services Section -->
+            <div id="services" class="entity-section">
+                <h2>Services</h2>
+                <div class="controls"><button data-entity="services">Get All Services</button></div>
+                <div class="form-container">
+                    <form data-entity="services" data-action="create"><h3>Create Service</h3><input type="text" name="description" placeholder="Description" required><input type="text" name="type" placeholder="Type" required><input type="number" name="cost" placeholder="Cost" required><button type="submit">Create</button></form>
+                    <form data-entity="services" data-action="update"><h3>Update Service</h3><input type="number" name="id" placeholder="Service ID" required><input type="text" name="description" placeholder="New Description"><input type="text" name="type" placeholder="New Type"><input type="number" name="cost" placeholder="New Cost"><button type="submit">Update</button></form>
+                    <form data-entity="services" data-action="delete"><h3>Delete Service</h3><input type="number" name="id" placeholder="Service ID" required><button type="submit">Delete</button></form>
+                </div>
+            </div>
+
+            <!-- Vehicles Section -->
+            <div id="vehicles" class="entity-section">
+                <h2>Vehicles</h2>
+                <div class="controls"><button data-entity="vehicles">Get All Vehicles</button></div>
+                <div class="form-container">
+                    <form data-entity="vehicles" data-action="create"><h3>Create Vehicle</h3><input type="text" name="plate" placeholder="Plate" required><input type="text" name="brand" placeholder="Brand" required><input type="text" name="model" placeholder="Model" required><button type="submit">Create</button></form>
+                    <form data-entity="vehicles" data-action="update"><h3>Update Vehicle</h3><input type="text" name="plate" placeholder="Plate" required><input type="text" name="brand" placeholder="New Brand"><input type="text" name="model" placeholder="New Model"><button type="submit">Update</button></form>
+                    <form data-entity="vehicles" data-action="delete"><h3>Delete Vehicle</h3><input type="text" name="plate" placeholder="Plate" required><button type="submit">Delete</button></form>
+                </div>
+            </div>
+
+            <!-- Addresses Section -->
+            <div id="addresses" class="entity-section">
+                <h2>Addresses</h2>
+                <div class="controls"><button data-entity="addresses">Get All Addresses</button></div>
+                <div class="form-container">
+                    <form data-entity="addresses" data-action="create"><h3>Create Address</h3><input type="number" name="countryId" placeholder="Country ID" required><input type="number" name="departmentId" placeholder="Department ID" required><input type="number" name="cityId" placeholder="City ID" required><input type="text" name="area" placeholder="Area" required><input type="text" name="direction" placeholder="Direction" required><button type="submit">Create</button></form>
+                    <form data-entity="addresses" data-action="update"><h3>Update Address</h3><input type="number" name="id" placeholder="Address ID" required><input type="number" name="countryId" placeholder="New Country ID"><input type="number" name="departmentId" placeholder="New Department ID"><input type="number" name="cityId" placeholder="New City ID"><input type="text" name="area" placeholder="New Area"><input type="text" name="direction" placeholder="New Direction"><button type="submit">Update</button></form>
+                    <form data-entity="addresses" data-action="delete"><h3>Delete Address</h3><input type="number" name="id" placeholder="Address ID" required><button type="submit">Delete</button></form>
+                </div>
+            </div>
+
+            <!-- Users Section -->
+            <div id="users" class="entity-section">
+                <h2>Users</h2>
+                <div class="controls"><button data-entity="users">Get All Users</button></div>
+                <div class="form-container">
+                    <form data-entity="users" data-action="create"><h3>Create User</h3><input type="text" name="dpi" placeholder="DPI" required><input type="text" name="firstname" placeholder="First Name" required><input type="text" name="lastname" placeholder="Last Name" required><input type="number" name="addressId" placeholder="Address ID" required><input type="text" name="telNumber" placeholder="Tel. Number" required><input type="email" name="email" placeholder="Email" required><input type="number" name="roleId" placeholder="Role ID" required><button type="submit">Create</button></form>
+                    <form data-entity="users" data-action="update"><h3>Update User</h3><input type="text" name="dpi" placeholder="DPI" required><input type="text" name="firstname" placeholder="New First Name"><input type="text" name="lastname" placeholder="New Last Name"><input type="number" name="addressId" placeholder="New Address ID"><input type="text" name="telNumber" placeholder="New Tel. Number"><input type="email" name="email" placeholder="New Email"><input type="number" name="roleId" placeholder="New Role ID"><button type="submit">Update</button></form>
+                    <form data-entity="users" data-action="delete"><h3>Delete User</h3><input type="text" name="dpi" placeholder="DPI" required><button type="submit">Delete</button></form>
+                </div>
+            </div>
+
+            <!-- Appointments Section -->
+            <div id="appointments" class="entity-section">
+                <h2>Appointments</h2>
+                <div class="controls"><button data-entity="appointments">Get All Appointments</button></div>
+                <div class="form-container">
+                    <form data-entity="appointments" data-action="create"><h3>Create Appointment</h3><input type="date" name="date" required><input type="number" name="serviceId" placeholder="Service ID" required><input type="text" name="plate" placeholder="Vehicle Plate" required><label><input type="checkbox" name="oil"> Needs Oil</label><input type="text" name="userDpi" placeholder="User DPI" required><button type="submit">Create</button></form>
+                    <form data-entity="appointments" data-action="update"><h3>Update Appointment</h3><input type="number" name="id" placeholder="Appointment ID" required><input type="date" name="date"><input type="number" name="serviceId" placeholder="New Service ID"><input type="text" name="plate" placeholder="New Vehicle Plate"><label><input type="checkbox" name="oil"> Needs Oil</label><input type="text" name="userDpi" placeholder="New User DPI"><button type="submit">Update</button></form>
+                    <form data-entity="appointments" data-action="delete"><h3>Delete Appointment</h3><input type="number" name="id" placeholder="Appointment ID" required><button type="submit">Delete</button></form>
+                </div>
+            </div>
+        </div>
+
+        <div class="results-section">
+            <h2>Results</h2>
+            <pre id="results"></pre>
+        </div>
+    </div>
+
+    <script src="/js/app.js"></script>
+</body>
+</html>

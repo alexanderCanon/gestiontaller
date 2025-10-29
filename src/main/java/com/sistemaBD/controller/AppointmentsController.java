@@ -1,10 +1,9 @@
 package com.sistemaBD.controller;
 
-import com.sistemaBD.dto.AppointmentsRequestDTO;
-import com.sistemaBD.dto.AppointmentsResponseDTO;
-import com.sistemaBD.service.IAppointmentsService;
-import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.sistemaBD.dto.request.AppointmentRequest;
+import com.sistemaBD.dto.response.AppointmentResponse;
+import com.sistemaBD.service.iservice.IAppointmentService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,37 +11,35 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/citas")
+@RequestMapping("/api/v1/appointments")
+@AllArgsConstructor
 public class AppointmentsController {
 
-    @Autowired
-    private IAppointmentsService appointmentsService;
+    private final IAppointmentService appointmentService;
 
     @GetMapping
-    public ResponseEntity<List<AppointmentsResponseDTO>> getAll() {
-        return ResponseEntity.ok(appointmentsService.getAllAppointments());
+    public ResponseEntity<List<AppointmentResponse>> getAll() {
+        return ResponseEntity.ok(appointmentService.findAll());
     }
 
-    @GetMapping("/{citaId}/{servicioId}")
-    public ResponseEntity<AppointmentsResponseDTO> getById(@PathVariable String citaId, @PathVariable Integer servicioId) {
-        return ResponseEntity.ok(appointmentsService.getAppointmentById(citaId, servicioId));
+    @GetMapping("/{id}")
+    public ResponseEntity<AppointmentResponse> getById(@PathVariable Integer id) {
+        return ResponseEntity.ok(appointmentService.findById(id));
     }
 
     @PostMapping
-    public ResponseEntity<AppointmentsResponseDTO> create(@Valid @RequestBody AppointmentsRequestDTO requestDTO) {
-        AppointmentsResponseDTO createdAppointment = appointmentsService.createAppointment(requestDTO);
-        return new ResponseEntity<>(createdAppointment, HttpStatus.CREATED);
+    public ResponseEntity<AppointmentResponse> save(@RequestBody AppointmentRequest request) {
+        return new ResponseEntity<>(appointmentService.save(request), HttpStatus.CREATED);
     }
 
-    @PutMapping("/{citaId}/{servicioId}")
-    public ResponseEntity<AppointmentsResponseDTO> update(@PathVariable String citaId, @PathVariable Integer servicioId, @Valid @RequestBody AppointmentsRequestDTO requestDTO) {
-        AppointmentsResponseDTO updatedAppointment = appointmentsService.updateAppointment(citaId, servicioId, requestDTO);
-        return ResponseEntity.ok(updatedAppointment);
+    @PutMapping("/{id}")
+    public ResponseEntity<AppointmentResponse> update(@PathVariable Integer id, @RequestBody AppointmentRequest request) {
+        return ResponseEntity.ok(appointmentService.update(id, request));
     }
 
-    @DeleteMapping("/{citaId}/{servicioId}")
-    public ResponseEntity<Void> delete(@PathVariable String citaId, @PathVariable Integer servicioId) {
-        appointmentsService.deleteAppointment(citaId, servicioId);
-        return ResponseEntity.noContent().build();
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+        appointmentService.delete(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

@@ -9,6 +9,6 @@ import java.util.List;
 @Repository
 public interface OilRepository extends JpaRepository<Oil, Integer> {
     // Método de ejemplo: Buscar aceites por tipo
-    List<Oil> findByTipo(String tipo);
+    List<Oil> findByType(String type);
 
 }
